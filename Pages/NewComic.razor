@@ -1,0 +1,50 @@
+@page "/newComic"
+@inject NavigationManager NavigationManager
+
+<h1>New Comic</h1>
+
+<EditForm Model="comic" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-group">
+        <label for="Title">Title</label>
+        <InputText class="form-control" id="Title" @bind-Value="comic.Title" />
+        <ValidationMessage For="@(() => comic.Title)" />
+    </div>
+    <div class="form-group">
+        <label for="Description">Description</label>
+        <InputTextArea class="form-control" id="Description" @bind-Value="comic.Description" />
+        <ValidationMessage For="@(() => comic.Description)" />
+    </div>
+    <div class="form-group">
+        <label for="ReleaseDate">Release Date</label>
+        <InputDate class="form-control" id="ReleaseDate" @bind-Value="comic.ReleaseDate" />
+        <ValidationMessage For="@(() => comic.ReleaseDate)" />
+    </div>
+    <div class="form-group">
+        <label for="NumberOfTiles">Number Of Tiles</label>
+        <InputNumber class="form-control" id="NumberOfTiles" @bind-Value="comic.NumberOfTiles" />
+        <ValidationMessage For="@(() => comic.NumberOfTiles)" />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</EditForm>
+
+@code {
+    private ComicModel comic = new ComicModel();
+
+    private async Task HandleValidSubmit()
+    {
+        // Validation
+        if (string.IsNullOrEmpty(comic.Title) || string.IsNullOrEmpty(comic.Description) ||
+            comic.ReleaseDate == null || comic.NumberOfTiles != 0)
+        {
+            return; // Fields left null, do not proceed
+        }
+
+        // Save data
+        // ...
+        // Redirect or show success message
+        // ...
+    }
+}
+
